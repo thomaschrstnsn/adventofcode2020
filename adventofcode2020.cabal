@@ -1,0 +1,33 @@
+name:                adventofcode2020
+version:             0.1.0.0
+-- synopsis:
+-- description:
+homepage:            https://github.com/thomaschrstnsn/adventofcode2020#readme
+license:             BSD3
+license-file:        LICENSE
+author:              Author name here
+maintainer:          example@example.com
+copyright:           2020 Author name here
+category:            Web
+build-type:          Simple
+extra-source-files:  README.md
+cabal-version:       >=1.10
+
+library
+  hs-source-dirs:      .
+  build-depends:       base >= 4.7 && < 5, hspec, hspec-core, QuickCheck, vector, split, containers, formatting, flow, clock
+  default-language:    Haskell2010
+  other-modules:       Specs, Common
+  ghc-options:         -W
+
+executable day01
+  main-is: day01.hs
+  hs-source-dirs:
+      .
+  build-depends:       base >= 4.7 && < 5, hspec, hspec-core, formatting, flow, clock
+  other-modules:       Specs, Common
+  ghc-options:         -Wall -threaded -rtsopts -with-rtsopts=-N -O2
+
+source-repository head
+  type:     git
+  location: https://github.com/thomaschrstnsn/adventofcode2020
