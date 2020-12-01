@@ -10,13 +10,10 @@
 -}
 
 import Common
-import Specs
-  ( specFromExamples,
-    specItem,
-  )
 import Test.Hspec
   ( SpecWith,
     describe,
+    it,
     shouldBe,
   )
 
@@ -26,22 +23,18 @@ readInputs = map readInt
     readInt :: String -> Int
     readInt = read
 
-calcFuel :: Int -> Int
-calcFuel x = x `div` 3 - 2
-
-solve :: [Int] -> Int
-solve xs = sum $ calcFuel <$> xs
+solve :: [Int] -> Maybe Int
+solve [] = Nothing
+solve (x : xs) = if candidate `elem` xs then Just $ x * candidate else solve xs
+  where
+    candidate = 2020 - x
 
 tests :: SpecWith ()
 tests =
-  describe "calcFuel" $
-    specFromExamples
-      [(12, 2), (14, 2), (1969, 654), (100756, 33583)]
-      ( \(input, expected) ->
-          specItem (show input ++ " should be: " ++ show expected) $
-            calcFuel input
-              `shouldBe` expected
-      )
+  describe "solve" $
+    it "works on example" $
+      let input = [1721, 979, 366, 299, 675, 1456]
+       in solve input `shouldBe` Just 514579
 
 main :: IO ()
 main = do

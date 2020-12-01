@@ -10,17 +10,10 @@
 -}
 
 import Common
-import Data.Function
-  ( (&),
-  )
-import Specs
-  ( specFromExamples,
-    specItem,
-  )
 import Test.Hspec
   ( SpecWith,
     describe,
-    hspec,
+    it,
     shouldBe,
   )
 
@@ -30,31 +23,33 @@ readInputs = map readInt
     readInt :: String -> Int
     readInt = read
 
-calcFuel :: Int -> Int
-calcFuel modWeight = fuelWeights
+solve2 :: Int -> [Int] -> Maybe Int
+solve2 _ [] = Nothing
+solve2 n (x : xs) = if candidate `elem` xs then Just $ x * candidate else solve2 n xs
   where
-    fuelWeights = calcFuel' modWeight 0
-    formula :: Int -> Int
-    formula x = x `div` 3 - 2
-    calcFuel' :: Int -> Int -> Int
-    calcFuel' f acc = if continue then calcFuel' r (acc + r) else acc
-      where
-        r = formula f
-        continue = r > 0
+    candidate = n - x
 
-solve :: [Int] -> Int
-solve xs = (calcFuel <$> xs) & sum
+safeHead :: [a] -> Maybe a
+safeHead [] = Nothing
+safeHead (x : _) = Just x
+
+solve :: [Int] -> Maybe Int
+solve [] = Nothing
+solve (x : xs) =
+  case winner of
+    Just n -> Just $ x * n
+    Nothing -> solve xs
+  where
+    limit = 2020 - x
+    candidates = filter (\n -> n < limit) xs
+    winner = solve2 limit candidates
 
 tests :: SpecWith ()
 tests =
-  describe "calcFuel" $
-    specFromExamples
-      [(14, 2), (1969, 966), (100756, 50346)]
-      ( \(input, expected) ->
-          specItem (show input ++ " should be: " ++ show expected) $
-            calcFuel input
-              `shouldBe` expected
-      )
+  describe "solve" $
+    it "works on example" $
+      let input = [1721, 979, 366, 299, 675, 1456]
+       in solve input `shouldBe` Just 241861950
 
 main :: IO ()
 main = do
