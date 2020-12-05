@@ -26,8 +26,7 @@ benchmark action = do
 aoc :: (Show b) => Int -> Solution a b -> IO ()
 aoc n solution = do
   input <- readFile $ printf "day%02dinput.txt" n
-  let inputWithoutNewline = init input
-  let problem = parse solution inputWithoutNewline
+  let problem = parse solution input
   benchmark $ do
     putStr "Parsing input..."
     evaluate problem
