@@ -153,8 +153,8 @@ main :: IO ()
 main = do
   Common.aoc
     7
-    Common.Solution
-      { Common.parse = readRules,
+    Common.EitherSolution
+      { Common.parseEither = readRules,
         Common.test = const tests,
-        Common.solution = fmap (countBagsThatCanContainBag "shiny gold")
+        Common.solution = countBagsThatCanContainBag "shiny gold"
       }
