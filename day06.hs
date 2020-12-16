@@ -11,9 +11,7 @@
   --package split
 -}
 
-import Common ((|>))
 import qualified Common
-import Data.Either (rights)
 import Data.Set (Set)
 import qualified Data.Set as Set
 import Test.Hspec
