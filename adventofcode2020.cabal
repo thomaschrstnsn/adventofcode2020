@@ -15,7 +15,7 @@ cabal-version:       >=1.10
 
 library
   hs-source-dirs:      .
-  build-depends:       base >= 4.7 && < 5, hspec, hspec-core, QuickCheck, vector, split, containers, formatting, flow, clock
+  build-depends:       base >= 4.7 && < 5, hspec, hspec-core, QuickCheck, vector, split, containers, formatting, flow, clock, parsec
   default-language:    Haskell2010
   other-modules:       Specs, Common
   ghc-options:         -W
